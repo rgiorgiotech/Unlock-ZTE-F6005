@@ -59,7 +59,7 @@ Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005 "prima version
 
 ---
 
-## 🚀 Note finali
+## 💡 Note finali
 1. **Software alternativi**: sconsiglio l'utilizzo di Windows con software come ASProgrammer.
 2. **Persistenza delle modifiche**: una volta flashato il dump, le modifiche per sbloccare Telnet saranno permanenti, anche dopo lo spegnimento.
 3. **SSH e porta seriale**: non ho sbloccato queste funzioni, l'unica funzione accessibile è Telnet.
