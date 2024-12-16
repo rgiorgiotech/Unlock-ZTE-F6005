@@ -31,7 +31,7 @@ Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005** (prima versi
 
 ### 1. Preparazione dell'ONT
 1. **Disconnessione dell'alimentatore**: l'ONT deve scollegato dall'alimentazione.
-2. **Isolamento del pin 8 (VCC)**: Se viene utilizzta una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC).
+2. **Isolamento del pin 8 (VCC)**: Se viene utilizzata una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC).
 
 ### 2. Flash del dump
 1. Posizionarsi nella directory contenente il file `UNLOCKEDTELNET.bin` (scaricabile da questa repository).
