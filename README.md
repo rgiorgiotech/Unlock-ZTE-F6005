@@ -2,7 +2,7 @@
 
 Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005** (prima versione, con la scocca dagli spigoli arrotondati). Verrà utilizzato un dump modificato (`UNLOCKEDTELNET.bin`) da flashare direttamente sulla SPI NOR Flash del dispositivo.
 
-Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è utilizzabile direttamente per l'upgrade da da web-gui (vedere il capitolo [Upgrade tramite web-gui](https://github.com/rgiorgiotech/Unlock-ZTE-F6005/blob/main/README.md#upgrade-tramite-web-gui)).
+Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è utilizzabile direttamente per l'upgrade da da web-gui (vedere il capitolo *Upgrade tramite web-gui*).
 
 ---
 
