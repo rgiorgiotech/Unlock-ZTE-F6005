@@ -14,8 +14,8 @@ Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005** (prima versi
 ## 🔧 Strumenti necessari
 
 ### Hardware
-1. Programmer CH341A;
-2. Clip SOIC8 (opzionale): utile per flash senza dissaldatura.
+- Programmer CH341A;
+- Clip SOIC8 (opzionale): utile per flash senza dissaldatura.
 
 ### Software
 - **flashrom**:
