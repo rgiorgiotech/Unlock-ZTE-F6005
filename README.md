@@ -1,6 +1,6 @@
 # Sblocco Telnet per ZTE F6005 (prima versione)
 
-Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005 "prima versione"** (con la scocca dagli spigoli arrotondati). Verrà utilizzato un dump modificato da flashare direttamente sulla SPI NOR Flash del dispositivo.
+Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005** (prima versione, con la scocca dagli spigoli arrotondati). Verrà utilizzato un dump modificato da flashare direttamente sulla SPI NOR Flash del dispositivo.
 
 ---
 
@@ -14,10 +14,8 @@ Questa guida descrive come sbloccare Telnet sugli ONT **ZTE F6005 "prima version
 ## 🔧 Strumenti necessari
 
 ### Hardware
-1. **Programmatore CH341A**:
-   - Per flash occasionali: consigliato un kit con una clip SOIC8.
-   - Per lavori più approfonditi: preferibile dissaldare la flash oppure utilizzare un programmatore con **pogopin**.
-2. **Clip SOIC8 (opzionale)**: utile per flash senza dissaldatura.
+1. Programmer CH341A;
+2. Clip SOIC8 (opzionale): utile per flash senza dissaldatura.
 
 ### Software
 - **flashrom**:
