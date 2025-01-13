@@ -18,7 +18,8 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
 
 ### Hardware
 - Programmer CH341A;
-- Clip SOIC8 (opzionale): utile per flash senza dissaldatura.
+- Clip SOIC8 (opzionale): utile per flash senza dissaldatura;
+- PC con Linux (*si consiglia di non utilizzare macchine virtuali per problemi di compatibilità. Una live ISO può andare bene*).
 
 ### Software
 - **flashrom**:
@@ -34,8 +35,8 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
 
 ### 1. Preparazione dell'ONT
 1. **Disconnessione dell'alimentatore**: l'ONT deve scollegato dall'alimentazione.
-2. **Isolamento del pin 8 (VCC)**: se viene utilizzata una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC).
-3. **Backup del chip**: effettuare un backup con il seguente comando:
+2. **Isolamento del pin 8 (VCC)**: se viene utilizzata una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC). *Il pin 8 è quello opposto al pin 1, indicato con un cerchietto a fianco. Il numero di pin si conta in senso antiorario*
+3. **Backup del chip**: effettuare un backup con il seguente comando eseguito da terminale:
    ```bash
    flashrom -p ch341a_spi -r backup.bin
    ```
@@ -43,7 +44,7 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
 ### 2. Flash del dump
 1. Posizionarsi nella directory contenente il file `UNLOCKEDTELNET.bin` (scaricabile da questa repository).
 2. Collegare il programmatore CH341A al computer.
-3. Eseguire il seguente comando:
+3. Eseguire il seguente comando da terminale:
    ```bash
    flashrom -p ch341a_spi -w UNLOCKEDTELNET.bin
    ```
@@ -52,7 +53,7 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
    - è possibile aggiungere `-VVV` per visualizzare i byte letti e scritti
   
 ### 3. Verifica del flash (opzionale ma consigliato)
-Dopo il flash, è possibile leggere il contenuto del chip e confrontarlo con il dump scaricato per verificare la correttezza della procedura.
+Dopo il flash, è possibile leggere il contenuto del chip e confrontarlo con il dump scaricato per verificare la correttezza della procedura. *Con una versione di flashrom aggiornata, generalmente dovrebbe verificare la correttezza del flash in automatico*
 1. Leggere il nuovo contenuto del flash:
    ```bash
    flashrom -p ch341a_spi -r VERIFYDUMP.bin
@@ -72,5 +73,4 @@ Se l'ONT permette l'aggiornamento del firmware tramite web-gui, è possibile usa
 **Attenzione**: questa procedura non è stata testata approfonditamente.
 
 ---
-
 Per eventuali dubbi o problemi, basta aprire una issue nella repository.
