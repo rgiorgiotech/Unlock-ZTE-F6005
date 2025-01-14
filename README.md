@@ -18,7 +18,8 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
 
 ### Hardware
 - Programmer CH341A;
-- Clip SOIC8 (opzionale): utile per flash senza dissaldatura.
+- Clip SOIC8 (opzionale): utile per flash senza dissaldatura;
+- Computer con Linux (OK live ISO) o macOS.
 
 ### Software
 - **flashrom**:
@@ -34,7 +35,7 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
 
 ### 1. Preparazione dell'ONT
 1. **Disconnessione dell'alimentatore**: l'ONT deve scollegato dall'alimentazione.
-2. **Isolamento del pin 8 (VCC)**: se viene utilizzata una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC).
+2. **Isolamento del pin 8 (VCC)**: se viene utilizzata una clip SOIC8 per leggere o scrivere, probabilmente è necessario staccare il pin 8 (VCC, è l'ultimo pin in senso antiorario partendo dal pin 1, che è solitamente indicato con un cerchietto accanto vicino al chip).
 3. **Backup del chip**: effettuare un backup con il seguente comando:
    ```bash
    flashrom -p ch341a_spi -r backup.bin
@@ -52,7 +53,7 @@ Il file `rootfs.img` contiene il firmware estratto dal dump modificato ed è uti
    - è possibile aggiungere `-VVV` per visualizzare i byte letti e scritti
   
 ### 3. Verifica del flash (opzionale ma consigliato)
-Dopo il flash, è possibile leggere il contenuto del chip e confrontarlo con il dump scaricato per verificare la correttezza della procedura.
+Dopo il flash, è possibile leggere il contenuto del chip e confrontarlo con il dump scaricato per verificare la correttezza della procedura. Flashrom dovrebbe già fare un check di default dopo aver scritto sul chip.
 1. Leggere il nuovo contenuto del flash:
    ```bash
    flashrom -p ch341a_spi -r VERIFYDUMP.bin
@@ -70,6 +71,11 @@ Se non ci sono differenze (nessun output del comando `diff`), il flash è stato 
 Se l'ONT permette l'aggiornamento del firmware tramite web-gui, è possibile usare il file `rootfs.img` (scaricabile da questa repository) per sbloccare Telnet senza accedere alla SPI NOR flash. Se non viene visualizzata la pagina "Software Upgrade" nell'interfaccia web dell'ONT, l'unica procedura valida resta quella descritta prima.
 
 **Attenzione**: questa procedura non è stata testata approfonditamente.
+
+---
+
+## Ringraziamenti
+Si ringrazia Skizzo per l'aiuto sul modding, [FedeBertos](https://github.com/FedeBertos) e Axtermax per i test (andati a buon fine) di tale procedura.
 
 ---
 
