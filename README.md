@@ -75,7 +75,7 @@ Se l'ONT permette l'aggiornamento del firmware tramite web-gui, è possibile usa
 ---
 
 ## Ringraziamenti
-Si ringrazia Skizzo per l'aiuto sul modding, [FedeBertos](https://github.com/FedeBertos) e Axtermax per i test (andati a buon fine) di tale procedura.
+Si ringrazia <ins>Skizzo</ins> per l'aiuto sul modding, [FedeBertos](https://github.com/FedeBertos) e <ins>Axtermax</ins> per i test (andati a buon fine) di tale procedura.
 
 ---
 
