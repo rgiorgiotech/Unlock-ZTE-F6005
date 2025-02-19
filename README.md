@@ -76,7 +76,7 @@ If the ONT supports firmware upgrades via its web interface (i.e., Open Fiber ve
 ---
 
 ## Acknowledgments
-Special thanks to <ins>Skizzo</ins> for assistance in modding, [FedeBertos](https://github.com/FedeBertos) and <ins>Axtermax</ins> for successfully testing this procedure.
+Special thanks to <ins>Skizzo</ins> for assistance in modding, [FedeBertos](https://github.com/FedeBertos), <ins>Axtermax</ins>, <ins>MercurioX85</ins> and [m1k83](https://github.com/m1k83) for successfully testing this procedure.
 
 ---
 
