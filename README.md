@@ -1,83 +1,81 @@
-# Unlocking Telnet on ZTE F6005 ONT (first version)
+# Sblocco Telnet ZTE F6005 ONT (prima versione)
 
-This guide explains how to unlock Telnet on ZTE F6005 ONT (first version, with rounded corners). A modified dump (`UNLOCKEDTELNET.bin`) will be flashed directly onto the SPI NOR Flash of the device.
+In questa guida è illustrato come sbloccare Telnet sull'ONT ZTE F6005 V6 (prima versione, angoli arrotondati). Un dump modificato (`UNLOCKEDTELNET.bin`) sarà flashato direttamente nel chip SPI del dispositivo.
 
-The `rootfs.img` file contains the extracted firmware from the modified dump and can be used for direct firmware upgrade via the web interface (see the *Upgrade via Web-GUI* section).
+Il file `rootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web (vedere sezione *Aggiornamento via Web-GUI*).
+
+Se questo progetto ti è stato utile e vuoi offrirmi un caffè ☕️ o una pizza 🍕, puoi farlo tramite [PayPal](https://paypal.me/rgiorgiotech). Grazie di cuore! 🙌
 
 ---
 
 ## ⚠️ Disclaimer
 
-1. **This modification was created entirely by me**, without using any third-party files. The process required extensive research. If you want to understand the technical details, I've documented everything in this repo: [ZTE-F6005-Modding](https://github.com/rgiorgiotech/ZTE-F6005-Modding).
-2. **Compatibility**: this dump is only compatible with first version of ZTE F6005 ONT, not with the _v3_ one.
-3. **I am not responsible for any damage or malfunction caused by following this procedure**: ensure you understand the process and its risks before proceeding.
+1. **Tutto il lavoro è stato eseguito da me**, senza usare file di terze parti. Il processo ha richiesto molta ricerca. Se vuoi approfondire i dettagli tecnici, ho documentato tutto in questa repo: [ZTE-F6005-Modding](https://github.com/rgiorgiotech/ZTE-F6005-Modding).
+2. **Compatibilità**: questo dump è compatibile solo con la prima versione dell'ONT F6005, non con la V3 (angoli squadrati).
+3. **Non sono responsabile di alcun danneggiamento o malfunzionamento**: assicurati di capire il processo e i suoi rischi prima di procedere.
 
 ---
 
-## 🔧 Required Tools
+## 🌐 Upgrade via Web-GUI
 
-### Hardware
+Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni Open Fiber) è possibile usare il file `rootfs.img` (in questa repo) per sbloccare Telnet senza accesso alla SPI NOR flash. In questo caso è sufficiente fermarsi qui: basta caricare il file nella web-gui dell'ONT e procedere con l'update attendendo che l'ONT si riavvii.
+
+**Attenzione**: se la pagina per l'aggiornamento software non è disponibile nella web-gui, è necessario seguire la seguente procedura per il flash via SPI.
+
+---
+
+## Procedura SPI Flash
+
+### 🔧 Strumenti richiesti
+
+#### Hardware
 - CH341A SPI programmer;
-- SOIC8 clip (optional, useful for flashing without desoldering);
-- A computer running Linux (Live ISO is fine) or macOS - all the software tried on Windows didn't flash correctly in my tests.
+- SOIC8 clip (opzionale ma consigliata per flashare senza dissaldare il chip);
+- Linux (anche live ISO) o macOS - i software provati su Windows non hanno dato buoni risultati.
 
-### Software
+#### Software
 - **flashrom**:
-  - On **macOS**: Install via Homebrew package manager:
+  - Su **macOS**: installabile via Homebrew package manager:
     ```bash
     brew install flashrom
     ```
-  - On **Linux**: Install via your distribution's package manager.
+  - Su **Linux**: installabile dal package manager della propria distribuzione.
 
----
 
-## 🚀 Procedure
+### 🚀 Procedura
 
-### 1. Preparing the ONT
-1. **No power supply**: the ONT must be disconnected from the mains;
-2. **Isolate pin 8 (VCC)**: if using an SOIC8 clip for reading/writing, you may need to disconnect pin 8 (VCC) - this is the last pin counterclockwise from pin 1 (this one usually marked with a dot);
-3. **Backup the original flash**:
+#### 1. Preparare l'ONT
+1. **No alimentatore**: l'ONT deve essere disconnesso dalla corrente elettrica;
+2. **Isolare il pin 8 (VCC)**: se viene usata una clip SOIC8, probabilmente è necessario disconnettere il pin 8 (VCC) - è l'ultimo pin, esattamente di fronte al pin 1 (che è indicato dal cavetto rosso e che corrisponde al pin col cerchietto stampato nel circuito).
+3. **Backup del contenuto originale**:
    ```bash
    flashrom -p ch341a_spi -r backup.bin
    ```
 
-### 2. Flashing the Modified Dump
-1. Move to the directory containing the `UNLOCKEDTELNET.bin` file.
-2. Connect the CH341A programmer to your computer.
-3. Execute the following command:
+#### 2. Flashare il dump modificato
+1. Dal terminale, posizionarsi nella directory contenente il file `UNLOCKEDTELNET.bin`.
+2. Connettere il programmer CH341A al computer.
+3. Eseguire il comando eseguente:
    ```bash
    flashrom -p ch341a_spi -w UNLOCKEDTELNET.bin
    ```
-4. Additional options:
-   - If required by flashrom, specify the chip model with `-c MODEL`;
-   - Add `-VVV` for verbose output.
+4. Opzioni addizionali:
+   - Se richiesto da flashrom, specificare il modello del chip con `-c MODEL`;
+   - Aggiungere `-VVV` alla fine del comando per la  verbose (visualizzazione dei byte letti/scritti).
   
-### 3. Verification (optional but recommended)
-After flashing, you can read back the flash content and compare it with the modified dump to ensure the procedure was successful. By default, flashrom performs an integrity check after writing.
+#### 3. Verifica (opzionale ma consigliata)
+Dopo il flash, è possibile leggere il nuovo contenuto del chip e confrontarlo con il file del dump modificato.
 
-1. Read back the flash content:
+1. Leggere il nuovo contenuto del chip:
    ```bash
    flashrom -p ch341a_spi -r VERIFYDUMP.bin
    ```
-2. Compare `UNLOCKEDTELNET.bin` with `VERIFYDUMP.bin`:
+2. Confrontare `UNLOCKEDTELNET.bin` con `VERIFYDUMP.bin`:
    ```bash
    diff UNLOCKEDTELNET.bin VERIFYDUMP.bin
    ```
-If there are no differences (i.e., `diff` produces no output), the flash process was successful.
+Se non ci sono differenze (il comando `diff` non produce output), la procedura è stata eseguita con successo.
 
 ---
 
-## Upgrade via Web-GUI
-
-If the ONT supports firmware upgrades via its web interface (i.e., Open Fiber version), you can try flashing `rootfs.img` (available in this repository) to unlock Telnet without requiring SPI NOR Flash access.
-
-**Warning**: This method has not been extensively tested. If the software upgrade page is not available in your ONT’s web interface, you must follow the SPI flashing procedure instead.
-
----
-
-## Acknowledgments
-Special thanks to <ins>Skizzo</ins> for assistance in modding, [FedeBertos](https://github.com/FedeBertos), <ins>Axtermax</ins>, <ins>MercurioX85</ins> and [m1k83](https://github.com/m1k83) for successfully testing this procedure.
-
----
-
-For any questions or issues, feel free to open an issue in this repository.
+Per domande o dubbi, è possibile contattarmi attraverso il mio sito [giorgiomessina.it](https://giorgiomessina.it).
