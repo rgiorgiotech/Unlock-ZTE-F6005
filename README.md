@@ -1,8 +1,8 @@
 # Sblocco Telnet ZTE F6005 ONT (prima versione)
 
-In questa guida è illustrato come sbloccare Telnet sull'ONT ZTE F6005 V6 (prima versione, angoli arrotondati). Un dump modificato (`UNLOCKEDTELNET.bin`) sarà flashato direttamente nel chip SPI del dispositivo.
+In questa guida è illustrato come sbloccare Telnet sull'ONT ZTE F6005 V6 (prima versione, angoli arrotondati). Un dump modificato (`unlocked-dump.bin`) sarà flashato direttamente nel chip SPI del dispositivo.
 
-Il file `rootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web (vedere sezione *Aggiornamento via Web-GUI*).
+Il file `newrootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web (vedere sezione *Aggiornamento via Web-GUI*).
 
 Se questo progetto ti è stato utile e vuoi offrirmi un caffè ☕️ o una pizza 🍕, puoi farlo tramite [PayPal](https://paypal.me/rgiorgiotech). Grazie di cuore! 🙌
 
@@ -18,7 +18,7 @@ Se questo progetto ti è stato utile e vuoi offrirmi un caffè ☕️ o una pizz
 
 ## 🌐 Upgrade via Web-GUI
 
-Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni Open Fiber) è possibile usare il file `rootfs.img` (in questa repo) per sbloccare Telnet senza accesso alla SPI NOR flash. In questo caso è sufficiente fermarsi qui: basta caricare il file nella web-gui dell'ONT e procedere con l'update attendendo che l'ONT si riavvii.
+Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni Open Fiber) è possibile usare il file `newrootfs.img` (in questa repo) per sbloccare Telnet senza accesso alla SPI NOR flash. In questo caso è sufficiente fermarsi qui: basta caricare il file nella web-gui dell'ONT e procedere con l'update attendendo che l'ONT si riavvii.
 
 **Attenzione**: se la pagina per l'aggiornamento software non è disponibile nella web-gui, è necessario seguire la seguente procedura per il flash via SPI.
 
@@ -57,7 +57,7 @@ Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni O
 2. Connettere il programmer CH341A al computer.
 3. Eseguire il comando eseguente:
    ```bash
-   flashrom -p ch341a_spi -w UNLOCKEDTELNET.bin
+   flashrom -p ch341a_spi -w unlocked-dump.bin
    ```
 4. Opzioni addizionali:
    - Se richiesto da flashrom, specificare il modello del chip con `-c MODEL`;
@@ -70,9 +70,9 @@ Dopo il flash, è possibile leggere il nuovo contenuto del chip e confrontarlo c
    ```bash
    flashrom -p ch341a_spi -r VERIFYDUMP.bin
    ```
-2. Confrontare `UNLOCKEDTELNET.bin` con `VERIFYDUMP.bin`:
+2. Confrontare `unlocked-dump.bin` con `VERIFYDUMP.bin`:
    ```bash
-   diff UNLOCKEDTELNET.bin VERIFYDUMP.bin
+   diff unlocked-dump.bin VERIFYDUMP.bin
    ```
 Se non ci sono differenze (il comando `diff` non produce output), la procedura è stata eseguita con successo.
 
