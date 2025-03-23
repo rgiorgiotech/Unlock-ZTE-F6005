@@ -24,6 +24,20 @@ Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni O
 
 ---
 
+## 🌐 Upgrade via Telnet
+
+Se è già stata installata una precedente versione con Telnet sbloccato, è possibile aggiornare alla nuova versione direttamente tramite Telnet. Per questa procedura è necessario abilitare un server FTP sul proprio computer (semplice procedura disponibile per tutti gli OS, è sufficiente una ricerca su Internet).
+
+Una volta entrati nell'ONT via Telnet, andare su `system > fs` ed eseguire il comando:
+```bash
+supgrade a newrootfs.img 192.168.1.2 user pass
+```
+dove `supgrade` è il comando superuser per l'aggiornamento; `a` è l'immagine da scrivere (nel chip ci sono due immagini, è preferibile ripetere lo stesso comando anche con `b` poiché ad alcuni OLT non piace che l'ONT abbia immagini con due versioni diverse); `newrootfs.img` è il file da utilizzare; `192.168.1.2` è l'IP del server FTP; `user` e `pass` sono le credenziali d'accesso al server FTP.
+
+Dopo l'aggiornamento è sufficiente riavviare l'ONT.
+
+---
+
 ## Procedura SPI Flash
 
 ### 🔧 Strumenti richiesti
