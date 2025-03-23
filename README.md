@@ -53,7 +53,7 @@ Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni O
    ```
 
 #### 2. Flashare il dump modificato
-1. Dal terminale, posizionarsi nella directory contenente il file `UNLOCKEDTELNET.bin`.
+1. Dal terminale, posizionarsi nella directory contenente il file `unlocked-dump.bin`.
 2. Connettere il programmer CH341A al computer.
 3. Eseguire il comando eseguente:
    ```bash
