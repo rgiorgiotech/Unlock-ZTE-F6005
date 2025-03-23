@@ -2,7 +2,7 @@
 
 In questa guida è illustrato come sbloccare Telnet sull'ONT ZTE F6005 V6 (prima versione, angoli arrotondati). Un dump modificato (`unlocked-dump.bin`) sarà flashato direttamente nel chip SPI del dispositivo.
 
-Il file `newrootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web (vedere sezione *Aggiornamento via Web-GUI*).
+Il file `newrootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web o, se è già sbloccato, da Telnet (vedere relative sezioni).
 
 Se questo progetto ti è stato utile e vuoi offrirmi un caffè ☕️ o una pizza 🍕, puoi farlo tramite [PayPal](https://paypal.me/rgiorgiotech). Grazie di cuore! 🙌
 
