@@ -92,4 +92,4 @@ Se non ci sono differenze (il comando `diff` non produce output), la procedura �
 
 ---
 
-Per domande o dubbi, è possibile contattarmi attraverso il mio sito [giorgiomessina.it](https://giorgiomessina.it).
+Per domande o dubbi, è possibile contattarmi attraverso il mio sito [giorgiomessina.eu](https://giorgiomessina.eu).
