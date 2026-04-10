@@ -1,95 +1,95 @@
-# Sblocco Telnet ZTE F6005 ONT (prima versione)
+# Unlocking Telnet on ZTE F6005 ONT (First Version)
 
-In questa guida è illustrato come sbloccare Telnet sull'ONT ZTE F6005 V6 (prima versione, angoli arrotondati). Un dump modificato (`unlocked-dump.bin`) sarà flashato direttamente nel chip SPI del dispositivo.
+This guide illustrates how to unlock Telnet on the ZTE F6005 V6 ONT (first version, rounded corners). A modified dump (`unlocked-dump.bin`) will be flashed directly onto the device's SPI chip.
 
-Il file `newrootfs.img` può essere usato per l'aggiornamento diretto dall'interfaccia web o, se è già sbloccato, da Telnet (vedere relative sezioni).
+The `newrootfs.img` file can be used for direct updates via the web interface or, if the device is already unlocked, via Telnet (see relevant sections).
 
-Se questo progetto ti è stato utile e vuoi offrirmi un caffè ☕️ o una pizza 🍕, puoi farlo tramite [PayPal](https://paypal.me/rgiorgiotech). Grazie di cuore! 🙌
+If this project helped you and you'd like to buy me a coffee ☕️ or a pizza 🍕, you can do so via [PayPal](https://paypal.me/rgiorgiotech). Thank you so much! 🙌
 
 ---
 
 ## ⚠️ Disclaimer
 
-1. **Tutto il lavoro è stato eseguito da me**, senza usare file di terze parti. Il processo ha richiesto molta ricerca. Se vuoi approfondire i dettagli tecnici, ho documentato tutto in questa repo: [ZTE-F6005-Modding](https://github.com/rgiorgiotech/ZTE-F6005-Modding).
-2. **Compatibilità**: questo dump è compatibile solo con la prima versione dell'ONT F6005, non con la V3 (angoli squadrati).
-3. **Non sono responsabile di alcun danneggiamento o malfunzionamento**: assicurati di capire il processo e i suoi rischi prima di procedere.
+1. **All work was performed by me**, without using third-party files. The process required extensive research. For further technical details, I have documented everything in this repo: [ZTE-F6005-Modding](https://github.com/rgiorgiotech/ZTE-F6005-Modding).
+2. **Compatibility**: This dump is only compatible with the first version of the F6005 ONT, not the V3 (squared corners).
+3. **I am not responsible for any damage or malfunction**: Ensure you fully understand the process and its risks before proceeding.
 
 ---
 
 ## 🌐 Upgrade via Web-GUI
 
-Se l'ONT supporta l'aggiornamento firmware dalla sua interfaccia web (versioni Open Fiber) è possibile usare il file `newrootfs.img` (in questa repo) per sbloccare Telnet senza accesso alla SPI NOR flash. In questo caso è sufficiente fermarsi qui: basta caricare il file nella web-gui dell'ONT e procedere con l'update attendendo che l'ONT si riavvii.
+If your ONT supports firmware updates through its web interface (Open Fiber versions), you can use the `newrootfs.img` file (included in this repo) to unlock Telnet without needing SPI NOR flash access. In this case, you can stop here: simply upload the file to the ONT's web-gui and proceed with the update, then wait for the ONT to reboot.
 
-**Attenzione**: se la pagina per l'aggiornamento software non è disponibile nella web-gui, è necessario seguire la seguente procedura per il flash via SPI.
+**Warning**: If the software update page is not available in the web-gui, you must follow the SPI flash procedure below.
 
 ---
 
 ## 🌐 Upgrade via Telnet
 
-Se è già stata installata una precedente versione con Telnet sbloccato, è possibile aggiornare alla nuova versione direttamente tramite Telnet. Per questa procedura è necessario abilitare un server FTP sul proprio computer (semplice procedura disponibile per tutti gli OS, è sufficiente una ricerca su Internet).
+If a previous version with Telnet already unlocked has been installed, you can update to the new version directly via Telnet. For this procedure, you need to enable an FTP server on your computer (a simple process available for all operating systems; a quick web search will suffice).
 
-Una volta entrati nell'ONT via Telnet, andare su `system > fs` ed eseguire il comando:
+Once you have accessed the ONT via Telnet, navigate to `system > fs` and execute the following command:
 ```bash
 supgrade a newrootfs.img 192.168.1.2 user pass
 ```
-dove `supgrade` è il comando superuser per l'aggiornamento; `a` è l'immagine da scrivere (nel chip ci sono due immagini, è preferibile ripetere lo stesso comando anche con `b` poiché ad alcuni OLT non piace che l'ONT abbia immagini con due versioni diverse); `newrootfs.img` è il file da utilizzare; `192.168.1.2` è l'IP del server FTP; `user` e `pass` sono le credenziali d'accesso al server FTP.
+Where `supgrade` is the superuser command for updates; `a` is the image to be written (the chip contains two images; it is recommended to repeat the command with `b` as some OLTs do not tolerate the ONT having two different image versions); `newrootfs.img` is the file to be used; `192.168.1.2` is your FTP server's IP address; `user` and `pass` are your FTP server credentials.
 
-Dopo l'aggiornamento è sufficiente riavviare l'ONT.
+After the update, simply reboot the ONT.
 
 ---
 
-## Procedura SPI Flash
+## SPI Flash Procedure
 
-### 🔧 Strumenti richiesti
+### 🔧 Requirements
 
 #### Hardware
 - CH341A SPI programmer;
-- SOIC8 clip (opzionale ma consigliata per flashare senza dissaldare il chip);
-- Linux (anche live ISO) o macOS - i software provati su Windows non hanno dato buoni risultati.
+- SOIC8 clip (optional but recommended for flashing without desoldering the chip);
+- Linux (including live ISOs) or macOS — software tested on Windows did not yield reliable results.
 
 #### Software
 - **flashrom**:
-  - Su **macOS**: installabile via Homebrew package manager:
+  - On **macOS**: Install via Homebrew package manager:
     ```bash
     brew install flashrom
     ```
-  - Su **Linux**: installabile dal package manager della propria distribuzione.
+  - On **Linux**: Install via your distribution's package manager.
 
 
-### 🚀 Procedura
+### 🚀 Procedure
 
-#### 1. Preparare l'ONT
-1. **No alimentatore**: l'ONT deve essere disconnesso dalla corrente elettrica;
-2. **Isolare il pin 8 (VCC)**: se viene usata una clip SOIC8, probabilmente è necessario disconnettere il pin 8 (VCC) - è l'ultimo pin, esattamente di fronte al pin 1 (che è indicato dal cavetto rosso e che corrisponde al pin col cerchietto stampato nel circuito).
-3. **Backup del contenuto originale**:
+#### 1. Prepare the ONT
+1. **No power supply**: The ONT must be disconnected from the power source.
+2. **Isolate pin 8 (VCC)**: If using a SOIC8 clip, you will likely need to disconnect pin 8 (VCC) — it is the last pin, directly opposite pin 1 (indicated by the red wire, corresponding to the pin with the dot printed on the circuit).
+3. **Original content backup**:
    ```bash
    flashrom -p ch341a_spi -r backup.bin
    ```
 
-#### 2. Flashare il dump modificato
-1. Dal terminale, posizionarsi nella directory contenente il file `unlocked-dump.bin`.
-2. Connettere il programmer CH341A al computer.
-3. Eseguire il comando eseguente:
+#### 2. Flash the modified dump
+1. From the terminal, navigate to the directory containing the `unlocked-dump.bin` file.
+2. Connect the CH341A programmer to your computer.
+3. Execute the following command:
    ```bash
    flashrom -p ch341a_spi -w unlocked-dump.bin
    ```
-4. Opzioni addizionali:
-   - Se richiesto da flashrom, specificare il modello del chip con `-c MODEL`;
-   - Aggiungere `-VVV` alla fine del comando per la  verbose (visualizzazione dei byte letti/scritti).
+4. Additional options:
+   - If prompted by flashrom, specify the chip model using `-c MODEL`.
+   - Add `-VVV` at the end of the command for verbose mode (to view the bytes being read/written).
   
-#### 3. Verifica (opzionale ma consigliata)
-Dopo il flash, è possibile leggere il nuovo contenuto del chip e confrontarlo con il file del dump modificato.
+#### 3. Verification (optional but recommended)
+After flashing, you can read the new chip content and compare it with the modified dump file.
 
-1. Leggere il nuovo contenuto del chip:
+1. Read the new chip content:
    ```bash
    flashrom -p ch341a_spi -r VERIFYDUMP.bin
    ```
-2. Confrontare `unlocked-dump.bin` con `VERIFYDUMP.bin`:
+2. Compare `unlocked-dump.bin` with `VERIFYDUMP.bin`:
    ```bash
    diff unlocked-dump.bin VERIFYDUMP.bin
    ```
-Se non ci sono differenze (il comando `diff` non produce output), la procedura è stata eseguita con successo.
+If there are no differences (the `diff` command produces no output), the procedure was successful.
 
 ---
 
-Per domande o dubbi, è possibile contattarmi attraverso il mio sito [giorgiomessina.eu](https://giorgiomessina.eu).
+For questions or concerns, feel free to contact me through my website [giorgiomessina.eu](https://giorgiomessina.eu).
